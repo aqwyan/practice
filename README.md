@@ -28,9 +28,3 @@
 - Оформлен Pull Request в проект «Дока».
 - Подготовлен отчёт о вкладе в формате Markdown (`docs/opensource-contribution-report.md`).
 - Результаты интегрированы в сайт (страница `variative.html`).
-
-**Ссылки по вариативной части:**
-
-- [Pull Request в проекте «Дока»](https://github.com/doka-guide/content/pull/...) (вставить ссылку)
-- [Страница вариативного задания на сайте](https://aqwyan.github.io/practice/site/variative.html)
-- [Исходный код демки](https://github.com/aqwyan/practice/blob/master/src/display-demo.html)
