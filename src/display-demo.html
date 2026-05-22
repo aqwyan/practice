@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивная демка: CSS display</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+            margin: 0;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .demo-header {
+            background: #2c3e50;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .demo-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-header p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .controls {
+            padding: 1.5rem;
+            background: #ecf0f1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .controls label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        select:hover {
+            border-color: #3498db;
+        }
+        
+        .preview {
+            padding: 2rem;
+            background: white;
+            min-height: 300px;
+        }
+        
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 12px;
+        }
+        
+        .demo-boxes {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px dashed #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .box {
+            background: #3498db;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 8px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .box:nth-child(1) { background: #3498db; }
+        .box:nth-child(2) { background: #2ecc71; }
+        .box:nth-child(3) { background: #e74c3c; }
+        .box:nth-child(4) { background: #f39c12; }
+        
+        .info {
+            padding: 1.5rem;
+            background: #e8f4fd;
+            border-top: 1px solid #bdc3c7;
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+        
+        .info code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .current-value {
+            font-weight: bold;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>CSS свойство display</h1>
+            <p>Выбери значение и посмотри, как меняются элементы</p>
+        </div>
+        
+        <div class="controls">
+            <label>Выберите значение display:</label>
+            <select id="displaySelect">
+                <option value="block">block</option>
+                <option value="inline">inline</option>
+                <option value="inline-block">inline-block</option>
+                <option value="flex">flex</option>
+                <option value="grid">grid</option>
+            </select>
+        </div>
+        
+        <div class="preview">
+            <div class="preview-title">Результат:</div>
+            <div class="demo-boxes" id="demoBoxes">
+                <div class="box">Блок 1</div>
+                <div class="box">Блок 2</div>
+                <div class="box">Блок 3</div>
+                <div class="box">Блок 4</div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <strong>Что происходит?</strong><br>
+            Текущее значение: <code class="current-value" id="currentValue">block</code><br><br>
+            • <strong>block</strong> — элементы занимают всю ширину и переносятся на новую строку<br>
+            • <strong>inline</strong> — элементы располагаются в строку, но ширина по содержимому<br>
+            • <strong>inline-block</strong> — как inline, но можно задать ширину и высоту<br>
+            • <strong>flex</strong> — включается гибкий Flexbox-контейнер<br>
+            • <strong>grid</strong> — включается мощный Grid-контейнер
+        </div>
+    </div>
+    
+    <script>
+        const select = document.getElementById('displaySelect');
+        const container = document.getElementById('demoBoxes');
+        const currentValueSpan = document.getElementById('currentValue');
+        
+        function updateDisplay() {
+            const value = select.value;
+            container.style.display = value;
+            currentValueSpan.textContent = value;
+            
+            if (value === 'flex') {
+                container.style.gap = '8px';
+                container.style.flexWrap = 'wrap';
+            } else if (value === 'grid') {
+                container.style.display = 'grid';
+                container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(150px, 1fr))';
+                container.style.gap = '12px';
+            } else {
+                container.style.gap = '';
+                container.style.flexWrap = '';
+                container.style.gridTemplateColumns = '';
+            }
+        }
+        
+        select.addEventListener('change', updateDisplay);
+        updateDisplay();
+    </script>
+</body>
+</html>
